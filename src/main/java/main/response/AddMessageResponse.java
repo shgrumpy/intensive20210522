@@ -1,18 +1,18 @@
 package main.response;
 
-public class MessageResponse {
+import java.util.Date;
 
-    private String name;
-    private String message;
+public class AddMessageResponse {
+    private boolean result;
     private String createdTime;
     private String modifiedTime;
 
-    public String getName() {
-        return name;
+    public boolean isResult() {
+        return result;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setResult(boolean result) {
+        this.result = result;
     }
 
     public String getCreatedTime() {
@@ -29,13 +29,5 @@ public class MessageResponse {
 
     public void setModifiedTime(String modifiedTime) {
         this.modifiedTime = modifiedTime;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
     }
 }

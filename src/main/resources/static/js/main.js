@@ -1,7 +1,9 @@
 $(function(){
 
+    var userName = 'Юзер';
+
     let initChat = function() {
-        //load messages
+        loadMessages();
         loadUsers();
     };
 
@@ -17,8 +19,23 @@ $(function(){
         });
     };
 
+    let loadMessages = function() {
+        let messagesList = $('.messages-list');
+        $.get('/api/messages', function(response) {
+            let messages = response.messages;
+            for(let i in messages) {
+                let messageItem = $('<div class="message"><b>' +
+                    messages[i].modifiedTime + "&nbsp;" +
+                    messages[i].name +
+                    '</b> ' + messages[i].message + '</div>');
+                messagesList.append(messageItem);
+            }
+        });
+    };
+
     let authUser = function() {
         let name = prompt('Введите имя пользователя:');
+        userName = name;
         $.post('/api/users', {'name': name}, function(response){
             if(response.result) {
                 initChat();
@@ -26,11 +43,12 @@ $(function(){
                 alert('Что-то пошло не так :(');
             }
         });
-    };
+    }; 
 
     let checkAuthStatus = function() {
         $.get('/api/auth', function(response){
             if(response.result) {
+                userName = response.name;
                 initChat();
             } else {
                 authUser();
@@ -39,4 +57,21 @@ $(function(){
     };
 
     checkAuthStatus();
+
+    $('.send-message').on('click', function(){
+        let message = $('.message-text').val();
+        let messagesList = $('.messages-list');
+        $.post('/api/messages', {'message': message}, function(response){
+            if(response.result) {
+                let messageItem = $('<div class="message"><b>' +
+                    response.modifiedTime + "&nbsp;" + userName +
+                    '</b> ' + message + '</div>');
+                messagesList.append(messageItem);
+                $('.message-text').val('');
+            } else {
+                alert('Что-то пошлло не так :(');
+            }
+        });
+    });
+
 });
