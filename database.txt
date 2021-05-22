@@ -11,4 +11,4 @@ message
 - user_id INT NOT NULL
 - created_time DATETIME NOT NULL
 - modified_time DATETIME NOT NULL
-- message VARCHAR(255) NOT NULL
+- message TEXT NOT NULL
