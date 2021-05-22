@@ -65,6 +65,5 @@ POST /api/users — создание пользователя при логин�
 }
 
 Ответ: {
-    "result": true,
-    "session_id": "sessionid_12345"
+    "result": true
 }
