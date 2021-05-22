@@ -6,7 +6,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.util.Date;
 
-@Entity (name = "Messages")
+@Entity
 public class Message {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
